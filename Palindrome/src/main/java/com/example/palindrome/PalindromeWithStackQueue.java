@@ -1,4 +1,5 @@
 package com.example.palindrome;
+import java.util.LinkedList;
 import java.util.Stack;
 import java.util.Queue;
 public class PalindromeWithStackQueue {
@@ -12,8 +13,28 @@ public class PalindromeWithStackQueue {
      */
     public static boolean isPalindrome(String s)
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (s == null) {
+            throw new IllegalArgumentException("Input string must not be null");
+        }
+        String normalized = normalize(s);
+
+        Stack<Character> stack = new Stack<>();
+        Queue<Character> queue = new LinkedList<>();
+
+        for (char c : normalized.toCharArray()) {
+            stack.push(c);
+            queue.add(c);
+        }
+
+        while (!stack.isEmpty()) {
+            if (!stack.pop().equals(queue.remove())) {
+                return false;
+            }
+        }
+
+        return true;
     }
+
 
     // Optional helper method for normalization
     public static String normalize(String s) {
